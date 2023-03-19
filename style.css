@@ -7,7 +7,20 @@
 
 #adding-line-btn {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  padding: 10px 20px;
+  background: #351c75;
+  color: #FFF;
+  border: none;
+  border-radius: 10px;
 }
 
+#how-to-use {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
