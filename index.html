@@ -4,20 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="fabric.min.js"></script>
+  <link rel="stylesheet" href="Style/style.css">
+  <script src="Library/fabric.min.js"></script>
   <title>Fabric Tutorial</title>
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  <button id="adding-line-btn">Add Line</button>
-  <div id="how-to-use">
-    <ol>
-      <li>Click "Add Line" button.</li>
-      <li>Click on the Canvas and start moving the mouse.</li>
-    </ol>
+  <div id="toolbar">
+    <button class="toolbar-btn" id="adding-line-btn">Add Line</button>
+    <button class="toolbar-btn" id="stop-adding-line-btn">Stop Adding Line</button>
   </div>
   
-  <script src="main.js"></script>
+  <!-- <script src="JS/AddingLine.js"></script> -->
+  <script type="module" src="main.js"></script>
 </body>
 </html>

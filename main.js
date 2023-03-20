@@ -1,3 +1,7 @@
+// import {activateAddingLine} from "./JS/AddingLine.js";
+
+// Creating fabric canvas:
+
 let canvas = new fabric.Canvas('canvas', {
 
   width: window.innerWidth,
@@ -5,30 +9,65 @@ let canvas = new fabric.Canvas('canvas', {
 });
 
 let addingLineBtn = document.getElementById('adding-line-btn');
+let stopAddingLineBtn = document.getElementById('stop-adding-line-btn');
+
+// Event listeners:
 
 addingLineBtn.addEventListener('click', activateAddingLine);
+
+stopAddingLineBtn.addEventListener('click', stopAddingLine)
+
+// Adding Lines:
+
+let isAddingLineBtnActive = false;
+
+function activateAddingLine() {
+
+  if (!isAddingLineBtnActive) {
+
+    isAddingLineBtnActive = true;
+    
+    canvas.on('mouse:down', startAddingLine);
+    canvas.on('mouse:move', startDrawingLine);
+    canvas.on('mouse:up', stopDrawingLine);
+
+    selectableObject('added-line', false);  
+  
+    canvas.selection = false;
+    canvas.hoverCursor = 'auto';
+  }
+}
+
+// Stop adding lines:
+
+function stopAddingLine() {
+
+  isAddingLineBtnActive = false;
+
+  canvas.off('mouse:down', startAddingLine);
+  canvas.off('mouse:move', startDrawingLine);
+  canvas.off('mouse:up', stopDrawingLine);
+
+  selectableObject('added-line', true);  
+
+  canvas.hoverCursor = 'all-scroll';
+}
+
+// Line Actions:
 
 let line;
 let mouseDown = false;
 
-function activateAddingLine() {
-
-  canvas.on('mouse:down', startAddingLine);
-  canvas.on('mouse:move', startDrawingLine);
-  canvas.on('mouse:up', stopDrawingLine);
-
-  canvas.selection = false;
-}
-
 function startAddingLine(o) {
-
   mouseDown = true;
 
   let pointer = canvas.getPointer(o.e);
 
   line = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+    id: 'added-line',
     stroke: 'red',
-    strokeWidth: 3
+    strokeWidth: 3,
+    selectable: false
   });
 
   canvas.add(line);
@@ -56,4 +95,20 @@ function startDrawingLine(o) {
 function stopDrawingLine() {
 
   mouseDown = false;
+  line.setCoords();
+}
+
+// Selectable Object
+
+function selectableObject(objID, isSelectable) {
+
+  canvas.getObjects().forEach(o => {
+
+    if (o.id === objID) {
+      
+      o.set({
+        selectable: isSelectable
+      });
+    };
+  });
 }
